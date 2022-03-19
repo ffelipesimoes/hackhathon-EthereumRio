@@ -3,7 +3,7 @@
 pragma solidity 0.8.13;
 
 contract UniversiDAO {
-    address DAOaddress;
+    address payable DAOaddress;
 
     uint256 proposalId;
     uint256 memberCount; // number of members
@@ -19,7 +19,7 @@ contract UniversiDAO {
     struct proposal {
         string data;
         uint256 valueToReward;
-        address owner;
+        address payable owner;
         bool active;
         uint256 createdAt;
         uint256 deadline;
@@ -35,7 +35,7 @@ contract UniversiDAO {
     //
 
     constructor() {
-        DAOaddress = msg.sender; // setting the owner the contract deployer: The DAO
+        DAOaddress = payable(msg.sender); // setting the owner the contract deployer: The DAO
     }
 
     modifier onlyDAO() {
@@ -79,7 +79,7 @@ contract UniversiDAO {
     ) public {
         proposals[proposalId].data = _data;
         proposals[proposalId].valueToReward = _valueToReward;
-        proposals[proposalId].owner = msg.sender;
+        proposals[proposalId].owner = payable(msg.sender);
         proposals[proposalId].active = true;
         proposals[proposalId].createdAt = block.timestamp;
         proposals[proposalId].deadline =
@@ -165,10 +165,16 @@ contract UniversiDAO {
             "No funds, comeback later"
         );
         uint256 value = proposals[_proposalId].valueToReward;
-        address _receiver = proposals[_proposalId].owner;
+        address payable _receiver = proposals[_proposalId].owner;
         // address(proposals[_proposalId].owner).transfer(proposals[_proposalId].valueToReward);
-        //_receiver.send(value);
+        (_receiver).transfer(value);
     }
 
-    function deposit() public payable {}
+    function deposit() public payable {
+        // nothing else to do!
+    }
+
+    function getBalance() public view returns (uint256) {
+        return address(this).balance;
+    }
 }
