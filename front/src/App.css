@@ -76,7 +76,22 @@
 .item h4 {
   margin-bottom: 0;
 }
- 
-.site-layout-content{
+
+.site-layout-content {
   background: #8f96a3;
+}
+
+.background {
+  width: 100%;
+  position: absolute;
+  left: 0;
+}
+
+.mainText {
+  color: rgb(235, 229, 229);
+  font-family: Space Grotesk;
+  font-style: light;
+  font-weight: 200;
+  font-size: 2rem;
+  line-height: 3rem;
 }

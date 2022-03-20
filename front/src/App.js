@@ -9,6 +9,8 @@ import { modalGlobalConfig } from 'antd/lib/modal/confirm'
 import PageComponent from './PageComponent'
 import { FormLayoutDemo } from './FormLayoutDemo'
 import ModalSimpleComponent from './ModalSimpleComponent'
+import background from './item2.png'
+
 const { Content } = Layout
 
 const usdcEthPoolAddress = '0xeb8f08a975Ab53E34D8a0330E0D34de942C95926'
@@ -81,9 +83,58 @@ const App = () => {
   if (!isAuthenticated) {
     body = (
       <>
-        <div style={{ textAlign: 'center', minHeight: '100vh' }}>
-          <img></img>
-          <p>Texto aqui</p>
+        <div style={{ minHeight: '100vh' }}>
+          <img className="background" src={background}></img>
+          <h2 style={{ textAlign: 'center' }}>
+            <font size="+3">Titulo pica</font>
+          </h2>
+          <p />
+          <h1 style={{ textAlign: 'left' }}>
+            <font size="+3">Membros</font>
+          </h1>
+          <em style={{ textAlign: 'left' }}>
+            <Col span={12}>
+              <font className="mainText" size="+1">
+                Somos a 1° organização descentralizada e autônoma (DAO) liderada
+                por estudantes em toda América Latina. Ajudamos universitários a
+                conseguirem fundos para seus projetos de pesquisa,
+                desenvolvimento e negócios.
+              </font>
+            </Col>
+            <p />
+            <Col span={12}>
+              {/* <font className="mainText" size="+1">
+                Discentes das mais diversas universidades formam nosso
+                ecossistema, onde a voz de cada membro é ouvida em cada decisão
+                e a transparência é pilar fundamental de cada processo, sendo
+                que todos financiamentos são colocados para votação da
+                comunidade.
+              </font> */}
+            </Col>
+          </em>
+          <h1 style={{ textAlign: 'left' }}>
+            <font size="+3">Investidores</font>
+          </h1>
+          <em style={{ textAlign: 'left' }}>
+            <Col span={12}>
+              <font className="mainText" size="+1">
+                Investir na universiDAO é catalisar o futuro dos estudantes
+                brasileiros e ajudar a construir um amanhã que queremos viver,
+                onde os problemas de hoje são somente histórias.
+              </font>
+            </Col>
+            <p />
+            <Col span={12}>
+              <font className="mainText" size="+1">
+                Investimos todo o capital recebido para financiar projetos de
+                P&D e negócios de estudantes das mais diversas universidades
+                brasileiras que estão ajudando a causar impacto positivo através
+                de soluções web3
+              </font>
+            </Col>
+            <p />
+            <p />
+          </em>
           <PageComponent align="center" />
         </div>
       </>
