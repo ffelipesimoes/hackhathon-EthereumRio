@@ -14,6 +14,9 @@ const { Content } = Layout
 const usdcEthPoolAddress = '0xeb8f08a975Ab53E34D8a0330E0D34de942C95926'
 const usdcEthPoolAbi = require('./contratos/contrato_a.json')
 
+const contrato_a = '0xf5f3aE8c51cAE90E68092fDD22740D1ad73d8075'
+const contrato_a_abi = require('./contratos/contrato_b.json')
+
 const ShowUniswapObserveValues = props => {
   const { data, runContractFunction, isFetching } = useWeb3Contract({
     abi: usdcEthPoolAbi,
@@ -35,7 +38,35 @@ const ShowUniswapObserveValues = props => {
   )
 }
 
+
+const PingNossoSmart = props => {
+  const { data, runContractFunction, isFetching } = useWeb3Contract({
+    abi: contrato_a_abi,
+    contractAddress: contrato_a,
+    functionName: props.function_name
+  })
+
+  return (
+    <div>
+      <Button
+        type="primary"
+        onClick={() => runContractFunction()}
+        disabled={isFetching}
+      >
+        Ping para contrato
+      </Button>
+      {data && <pre>{JSON.stringify(data)}</pre>}
+    </div>
+  )
+}
+
 const App = () => {
+  
+  function DepositaValor() {
+    console.log(document.getElementById("valor"));
+  }
+ 
+ 
   const { authenticate, isAuthenticated, user } = useMoralis()
   const [isVoteModalVisible, setIsVoteModalVisible] = useState(false)
   const [isSubmmitModalVisible, setIsSubmmitModalVisible] = useState(false)
@@ -120,6 +151,12 @@ const App = () => {
             <ShowUniswapObserveValues function_name="symbol" />
             <p />
             <ShowUniswapObserveValues function_name="name" />
+            <PingNossoSmart function_name="getBalance" />
+            <form>
+              <input type="text" id="valor"  placeholder="How much ETH?"/>
+              <button onClick= {DepositaValor} >Enviar</button>
+            </form>
+
           </div>
         </Content>
         <div style={{ textAlign: 'center' }}>
