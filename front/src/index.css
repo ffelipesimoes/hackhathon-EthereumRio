@@ -160,6 +160,13 @@ p {
   height: 500;
 }
 
+.center-meu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  }
+
 .center-h {
   display: flex; /* or display:grid */
   justify-content: center;

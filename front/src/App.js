@@ -1,7 +1,7 @@
 import React from 'react'
 import './App.css'
 import { Button, Col, Row } from 'antd'
-import { useMoralis, useWeb3Contract } from 'react-moralis'
+import { useMoralis, useWeb3Contract, useWeb3Transfer, useApiContract } from 'react-moralis'
 import { Modal, Layout, Input } from 'antd'
 import { useState } from 'react'
 import ModalComponent from './ModalComponent'
@@ -46,7 +46,6 @@ const PingNossoSmart = props => {
     contractAddress: contrato_a,
     functionName: props.function_name
   })
-
   return (
     <div>
       <Button
@@ -54,14 +53,22 @@ const PingNossoSmart = props => {
         onClick={() => runContractFunction()}
         disabled={isFetching}
       >
-        Ping para contrato
+        Balanco DAO
       </Button>
-      {data && <pre>{JSON.stringify(data)}</pre>}
+      {data && <pre>{parseInt(data._hex,16)}</pre>}
     </div>
   )
 }
 
+
+
+
+
+
 const App = () => {
+
+  
+
   const handleChange = event => {
     setEthValue(event.target.value)
   }
@@ -71,17 +78,49 @@ const App = () => {
   const DepositaValor = () => {
     console.log(ethValue)
   }
-
-  const DoarValor = () => {
-    console.log(donationValue)
-  }
-
+  
   const { authenticate, isAuthenticated, user } = useMoralis()
   const [isVoteModalVisible, setIsVoteModalVisible] = useState(false)
   const [isSubmmitModalVisible, setIsSubmmitModalVisible] = useState(false)
   const [isDonationModalVisible, setIsDonationModalVisible] = useState(false)
   const [ethValue, setEthValue] = useState(undefined)
   const [donationValue, setDonationValue] = useState(undefined)
+
+  
+  const DoarValor = () => {
+
+    const { runContractFunction, contractResponse, error, isRunning, isLoading } = useWeb3Contract({
+      abi: contrato_a_abi,
+      contractAddress: contrato_a,
+      functionName: "deposit",
+      msgValue: 100000000000
+    });
+    
+    return (
+      <Button type="primary" onClick={() => runContractFunction()} >Faz doacao</Button>
+    )
+
+  }
+
+  const CriaProposal = () => {
+
+    const { runContractFunction, contractResponse, error, isRunning, isLoading } = useWeb3Contract({
+      abi: contrato_a_abi,
+      contractAddress: contrato_a,
+      functionName: "CreateProposal",
+      params: {
+        _data: "Excelente DAO!",
+        _valueToReward: 200,
+        timeStamp: 20
+      }
+    });
+    
+    return (
+      <Button type="primary" onClick={() => runContractFunction()} >Cria Proposal</Button>
+    )
+
+  }
+
 
   const showVoteModal = () => {
     setIsVoteModalVisible(true)
@@ -126,7 +165,7 @@ const App = () => {
         <div style={{ minHeight: '100vh' }}>
           <img></img>
           <h2 style={{ textAlign: 'center' }}>
-            <font size="+3">Titulo pica</font>
+            <font size="+3">UniversiDAO</font>
           </h2>
           <p />
           <h1 style={{ textAlign: 'left' }}>
@@ -184,34 +223,35 @@ const App = () => {
       <>
         <Content style={{ minHeight: '100vh' }}>
           <div style={{ textAlign: 'center' }}>
-            <h1>Welcome</h1>
-            <h1>{user.get('username')}</h1>
+            <h1>Bem-vindo!</h1>
+            {console.log(user)}
+            <h1>Sua carteira:</h1>
+            <h1>{user.get('ethAddress')}</h1>
             <p></p>
-            <div style={{ textAlign: 'left' }}>
-              <Col span={8}>
-                <Row>
-                  <Col span={8}>
+              <Col span={1}>
+                <Row span={10}>
                     <Button type="primary" onClick={showSubmmitModal}>
-                      Submeter pitch
+                      Submeter proposta
                     </Button>
-                  </Col>
-                  <Col span={8}>
+                    <p></p>
                     <Button type="primary" onClick={showDonationModal}>
                       Doar para DAO
                     </Button>
-                  </Col>
-                  <Col span={8}>
+                    <p></p>
+
                     <Button type="secondary" onClick={showVoteModal}>
                       Participar de votação
                     </Button>
-                  </Col>
+                    <p></p>
+
+                    <PingNossoSmart function_name="getBalance" />
+                    <p></p>
+                    <CriaProposal/>
+                    <p></p>
+
+                    <DoarValor/>
                 </Row>
               </Col>
-            </div>
-            <ShowUniswapObserveValues function_name="symbol" />
-            <p />
-            <ShowUniswapObserveValues function_name="name" />
-            <PingNossoSmart function_name="getBalance" />
           </div>
         </Content>
         <div style={{ textAlign: 'center' }}>
@@ -235,7 +275,6 @@ const App = () => {
         handleCancel={handleDonationCancel}
         onChange={handleDonationChange}
         value={donationValue}
-        onOk={DoarValor}
       />
       <Modal
         title="Participe de uma votação"
