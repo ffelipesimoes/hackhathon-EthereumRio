@@ -161,6 +161,10 @@ contract UniversiDAO {
             "voting on going"
         );
         require(
+            proposals[_proposalId].voteFor < proposals[_proposalId].voteAgainst,
+            "voting not approved"
+        );
+        require(
             address(this).balance - proposals[_proposalId].valueToReward > 0,
             "No funds, comeback later"
         );
