@@ -62,19 +62,26 @@ const PingNossoSmart = props => {
 }
 
 const App = () => {
-  const handleChange = (event) =>{
-    setEthValue(event.target.value);
+  const handleChange = event => {
+    setEthValue(event.target.value)
   }
-  const DepositaValor = () =>{
-    console.log(ethValue);
+  const handleDonationChange = event => {
+    setDonationValue(event.target.value)
   }
- 
- 
+  const DepositaValor = () => {
+    console.log(ethValue)
+  }
+
+  const DoarValor = () => {
+    console.log(donationValue)
+  }
+
   const { authenticate, isAuthenticated, user } = useMoralis()
   const [isVoteModalVisible, setIsVoteModalVisible] = useState(false)
   const [isSubmmitModalVisible, setIsSubmmitModalVisible] = useState(false)
   const [isDonationModalVisible, setIsDonationModalVisible] = useState(false)
   const [ethValue, setEthValue] = useState(undefined)
+  const [donationValue, setDonationValue] = useState(undefined)
 
   const showVoteModal = () => {
     setIsVoteModalVisible(true)
@@ -117,7 +124,7 @@ const App = () => {
     body = (
       <>
         <div style={{ minHeight: '100vh' }}>
-          <img className="background" src={background}></img>
+          <img></img>
           <h2 style={{ textAlign: 'center' }}>
             <font size="+3">Titulo pica</font>
           </h2>
@@ -127,7 +134,7 @@ const App = () => {
           </h1>
           <em style={{ textAlign: 'left' }}>
             <Col span={12}>
-              <font className="mainText" size="+1">
+              <font size="+1">
                 Somos a 1° organização descentralizada e autônoma (DAO) liderada
                 por estudantes em toda América Latina. Ajudamos universitários a
                 conseguirem fundos para seus projetos de pesquisa,
@@ -136,13 +143,13 @@ const App = () => {
             </Col>
             <p />
             <Col span={12}>
-              {/* <font className="mainText" size="+1">
+              <font size="+1">
                 Discentes das mais diversas universidades formam nosso
                 ecossistema, onde a voz de cada membro é ouvida em cada decisão
                 e a transparência é pilar fundamental de cada processo, sendo
                 que todos financiamentos são colocados para votação da
                 comunidade.
-              </font> */}
+              </font>
             </Col>
           </em>
           <h1 style={{ textAlign: 'left' }}>
@@ -150,7 +157,7 @@ const App = () => {
           </h1>
           <em style={{ textAlign: 'left' }}>
             <Col span={12}>
-              <font className="mainText" size="+1">
+              <font size="+1">
                 Investir na universiDAO é catalisar o futuro dos estudantes
                 brasileiros e ajudar a construir um amanhã que queremos viver,
                 onde os problemas de hoje são somente histórias.
@@ -158,7 +165,7 @@ const App = () => {
             </Col>
             <p />
             <Col span={12}>
-              <font className="mainText" size="+1">
+              <font size="+1">
                 Investimos todo o capital recebido para financiar projetos de
                 P&D e negócios de estudantes das mais diversas universidades
                 brasileiras que estão ajudando a causar impacto positivo através
@@ -226,6 +233,9 @@ const App = () => {
         text="Qual a quantia a ser doada?"
         isModalVisible={isDonationModalVisible}
         handleCancel={handleDonationCancel}
+        onChange={handleDonationChange}
+        value={donationValue}
+        onOk={DoarValor}
       />
       <Modal
         title="Participe de uma votação"
@@ -238,7 +248,9 @@ const App = () => {
         <p />
         <Row>
           <Col span={12}>
-            <Button type="primary"  onClick={DepositaValor}>Aprovar</Button>
+            <Button type="primary" onClick={DepositaValor}>
+              Aprovar
+            </Button>
           </Col>
           <Col span={12} style={{ textAlign: 'right' }}>
             <Button type="primary" danger>

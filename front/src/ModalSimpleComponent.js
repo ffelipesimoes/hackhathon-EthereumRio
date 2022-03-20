@@ -7,9 +7,10 @@ const ModalSimpleComponent = props => {
       visible={props.isModalVisible}
       onCancel={props.handleCancel}
       footer={props.footer}
+      onOk={props.onOk}
     >
       <a>{props.message}</a>
-      <Input placeholder="" />
+      <Input placeholder="" onChange={props.onChange} value={props.value} />
     </Modal>
   )
 }

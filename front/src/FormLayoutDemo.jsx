@@ -9,6 +9,34 @@ export const FormLayoutDemo = () => {
   const onFormLayoutChange = ({ layout }) => {
     setFormLayout(layout);
   };
+  const [descricao, setDescricao] = useState('');
+  const [receber, setReceber] = useState('');
+  const [tempo, setTempo] = useState('');
+
+  const handleDescricaoChange = event => {
+    setDescricao(event.target.value)
+  }
+  const handleReceberChange = event => {
+    setReceber(event.target.value)
+  }
+  const handleTempoChange = event => {
+    setTempo(event.target.value)
+  }
+  const submitDesc = () => {
+    console.log(descricao)
+  }
+  const submitValue = () => {
+    console.log(receber)
+  }
+  const submitTime = () => {
+    console.log(tempo)
+  }
+
+  const onClickComplete = () => {
+    submitDesc();
+    submitTime();
+    submitValue();
+  }
 
   const formItemLayout =
     formLayout === 'horizontal'
@@ -40,17 +68,17 @@ export const FormLayoutDemo = () => {
       onValuesChange={onFormLayoutChange}
     >
       <Form.Item label="Descricao">
-        <Input placeholder="Descreva aqui seu projeto" />
+        <Input placeholder="Descreva aqui seu projeto" value={descricao} onChange={handleDescricaoChange}/>
       </Form.Item>
       <Form.Item label="Valor a receber">
-        <Input placeholder="" />
+        <Input placeholder="" value={receber} onChange={handleReceberChange}/>
       </Form.Item>
       <Form.Item label="Duracao da votacao a partir da submissao">
-        <Input placeholder="Em segundos" />
+        <Input placeholder="Em segundos" value={tempo} onChange={handleTempoChange}/>
       </Form.Item>
       <Form.Item {...buttonItemLayout}>
         <div style={{textAlign:'center'}}>
-          <Button type="primary">Submit</Button>
+          <Button type="primary" onClick={onClickComplete}>Submit</Button>
         </div>
       </Form.Item>
     </Form>
