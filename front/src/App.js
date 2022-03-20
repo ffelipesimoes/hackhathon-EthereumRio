@@ -38,7 +38,6 @@ const ShowUniswapObserveValues = props => {
   )
 }
 
-
 const PingNossoSmart = props => {
   const { data, runContractFunction, isFetching } = useWeb3Contract({
     abi: contrato_a_abi,
@@ -61,9 +60,11 @@ const PingNossoSmart = props => {
 }
 
 const App = () => {
-  
-  function DepositaValor() {
-    console.log(document.getElementById("valor"));
+  const handleChange = (event) =>{
+    setEthValue(event.target.value);
+  }
+  const DepositaValor = () =>{
+    console.log(ethValue);
   }
  
  
@@ -71,6 +72,7 @@ const App = () => {
   const [isVoteModalVisible, setIsVoteModalVisible] = useState(false)
   const [isSubmmitModalVisible, setIsSubmmitModalVisible] = useState(false)
   const [isDonationModalVisible, setIsDonationModalVisible] = useState(false)
+  const [ethValue, setEthValue] = useState(undefined)
 
   const showVoteModal = () => {
     setIsVoteModalVisible(true)
@@ -152,11 +154,6 @@ const App = () => {
             <p />
             <ShowUniswapObserveValues function_name="name" />
             <PingNossoSmart function_name="getBalance" />
-            <form>
-              <input type="text" id="valor"  placeholder="How much ETH?"/>
-              <button onClick= {DepositaValor} >Enviar</button>
-            </form>
-
           </div>
         </Content>
         <div style={{ textAlign: 'center' }}>
@@ -165,7 +162,6 @@ const App = () => {
       </>
     )
   }
-
   return (
     <>
       {body}
@@ -187,11 +183,11 @@ const App = () => {
         footer={null}
       >
         <a>Id da proposta</a>
-        <Input placeholder="" />
+        <Input placeholder="" value={ethValue} onChange={handleChange} />
         <p />
         <Row>
           <Col span={12}>
-            <Button type="primary">Aprovar</Button>
+            <Button type="primary"  onClick={DepositaValor}>Aprovar</Button>
           </Col>
           <Col span={12} style={{ textAlign: 'right' }}>
             <Button type="primary" danger>
