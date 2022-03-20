@@ -1,4 +1,4 @@
-![!universiDAO](resources/foxrover.png)
+![!universiDAO](./front/hacka_logo.svg)
 
 # universiDAO
 
@@ -50,7 +50,3 @@ A UniversiDAO fomenta que o estudante proponha projetos de pesquisa, desenvolvim
 ### universiDAO na prática
 
 A universiDAO tem sua porta de entrada no Discord: https://discord.gg/sVTQbA7q. Aqui é feito a validação do seu vínculo estudantil para fazer parte da DAO
-
-```
-
-```
