@@ -49,4 +49,8 @@ A UniversiDAO fomenta que o estudante proponha projetos de pesquisa, desenvolvim
 
 ### universiDAO na prática
 
-A universiDAO tem sua porta de entrada no Discord: https://discord.gg/sVTQbA7q. Aqui é feito a validação do seu vínculo estudantil para fazer parte da DAO
+A universiDAO tem sua porta de entrada no Discord: https://discord.gg/sVTQbA7q. Aqui é feito a validação do seu vínculo estudantil para fazer parte da DAO.
+
+Uma vez parte da universiDAO, como estudante você poderá requisitar investimentos para fomentar projetos de web3 por meio de uma requisição de fundos que será votado pela universiDAO.
+
+A votação das propostas acontecem na universiDAO e a liberação do fundo acontece logo após o fim da votação.
