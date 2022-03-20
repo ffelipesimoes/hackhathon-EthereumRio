@@ -6,6 +6,9 @@ import { Modal, Layout, Input } from 'antd'
 import { useState } from 'react'
 import ModalComponent from './ModalComponent'
 import { modalGlobalConfig } from 'antd/lib/modal/confirm'
+import PageComponent from './PageComponent'
+import { FormLayoutDemo } from './FormLayoutDemo'
+import ModalSimpleComponent from './ModalSimpleComponent'
 const { Content } = Layout
 
 const usdcEthPoolAddress = '0xeb8f08a975Ab53E34D8a0330E0D34de942C95926'
@@ -36,6 +39,7 @@ const App = () => {
   const { authenticate, isAuthenticated, user } = useMoralis()
   const [isVoteModalVisible, setIsVoteModalVisible] = useState(false)
   const [isSubmmitModalVisible, setIsSubmmitModalVisible] = useState(false)
+  const [isDonationModalVisible, setIsDonationModalVisible] = useState(false)
 
   const showVoteModal = () => {
     setIsVoteModalVisible(true)
@@ -60,13 +64,27 @@ const App = () => {
     setIsSubmmitModalVisible(false)
   }
 
+  const showDonationModal = () => {
+    setIsDonationModalVisible(true)
+  }
+
+  const handleDonationOk = () => {
+    setIsDonationModalVisible(false)
+  }
+
+  const handleDonationCancel = () => {
+    setIsDonationModalVisible(false)
+  }
+
   let body = undefined
 
   if (!isAuthenticated) {
     body = (
       <>
         <div style={{ textAlign: 'center', minHeight: '100vh' }}>
-          <h1>Usuario não autenticado</h1>
+          <img></img>
+          <p>Texto aqui</p>
+          <PageComponent align="center" />
         </div>
       </>
     )
@@ -79,14 +97,19 @@ const App = () => {
             <h1>{user.get('username')}</h1>
             <p></p>
             <div style={{ textAlign: 'left' }}>
-              <Col span={5}>
+              <Col span={8}>
                 <Row>
-                  <Col span={12}>
+                  <Col span={8}>
                     <Button type="primary" onClick={showSubmmitModal}>
                       Submeter pitch
                     </Button>
                   </Col>
-                  <Col span={12}>
+                  <Col span={8}>
+                    <Button type="primary" onClick={showDonationModal}>
+                      Doar para DAO
+                    </Button>
+                  </Col>
+                  <Col span={8}>
                     <Button type="secondary" onClick={showVoteModal}>
                       Participar de votação
                     </Button>
@@ -113,6 +136,12 @@ const App = () => {
         text="Qual sua proposta?"
         isModalVisible={isSubmmitModalVisible}
         handleCancel={handleSubmmitCancel}
+        footer={null}
+      />
+      <ModalSimpleComponent
+        text="Qual a quantia a ser doada?"
+        isModalVisible={isDonationModalVisible}
+        handleCancel={handleDonationCancel}
       />
       <Modal
         title="Participe de uma votação"

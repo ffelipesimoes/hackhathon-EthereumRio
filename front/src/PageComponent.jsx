@@ -6,14 +6,14 @@ import { Layout } from 'antd';
 
 const { Header, Footer, Sider, Content } = Layout;
   
-const PageComponent = () => { 
+const PageComponent = (props) => { 
     const { authenticate, isAuthenticated, user } = useMoralis();
     const { logout, isAuthenticating } = useMoralis();
     
     if (!isAuthenticated) {
         return (
             <>
-                <div style={{textAlign:'right'}}>
+                <div style={{textAlign:props.align}}>
                   <Button type="primary" onClick={() => authenticate()}>Log in</Button>
                 </div>
             </>
